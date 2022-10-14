@@ -55,12 +55,12 @@ def _argparse():
     parser.add_argument('--outputfile', type=str, default='merged_roi.mgz', help='Output filename')
     parser.add_argument('--roidir', type=str, default='ROI', help='path to ROI dir')
     parser.add_argument('--outputdir', type=str, default='target', help='What kinds of ROI are you making?')
+    parser.add_argument('--filetype', choices=['.nii', '.nii.gz'], help='.nii or .nii.gz?')
     args = parser.parse_args()
     return args
 
-def MPRAGE_freesurfer_check(MPRAGEdir, freesurferdir):
-    l_MPRAGEpath = [p for p in glob.glob(MPRAGEdir + '/**', recursive=True) if re.search('.nii.gz', p)]
-    #l_MPRAGEpath = [p for p in glob.glob(MPRAGEdir + '/**', recursive=True) if re.search('.nii', p)]
+def MPRAGE_freesurfer_check(MPRAGEdir, freesurferdir, filetype):
+    l_MPRAGEpath = [p for p in glob.glob(MPRAGEdir + '/**', recursive=True) if re.search(filetype, p)]
     l_MPRAGEname = [p.split('/')[-1] for p in l_MPRAGEpath]
 
     dirfromMPRAGE = [f.rsplit('.',1)[0] for f in l_MPRAGEname]
@@ -84,7 +84,7 @@ def Label2ID(sourcetable, regionlist):
     return l_id
 
 def main(args):
-    l_MPRAGEpath = MPRAGE_freesurfer_check(args.mpragedir, args.freesurferdir)
+    l_MPRAGEpath = MPRAGE_freesurfer_check(args.mpragedir, args.freesurferdir, args.filetype)
     l_id = Label2ID(args.freesurfertablepath, args.roicsvpath)
     df = pd.DataFrame()
     for MPRAGEpath in tqdm(l_MPRAGEpath): #MPRAGE-basis
