@@ -60,6 +60,7 @@ def _argparse():
 
 def MPRAGE_freesurfer_check(MPRAGEdir, freesurferdir):
     l_MPRAGEpath = [p for p in glob.glob(MPRAGEdir + '/**', recursive=True) if re.search('.nii.gz', p)]
+    #l_MPRAGEpath = [p for p in glob.glob(MPRAGEdir + '/**', recursive=True) if re.search('.nii', p)]
     l_MPRAGEname = [p.split('/')[-1] for p in l_MPRAGEpath]
 
     dirfromMPRAGE = [f.rsplit('.',1)[0] for f in l_MPRAGEname]
