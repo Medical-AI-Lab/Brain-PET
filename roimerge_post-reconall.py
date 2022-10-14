@@ -10,8 +10,8 @@ from tqdm import tqdm
 class ROI_maker():
     def __init__(self, args, MPRAGEpath, l_id):
         self.mpragepath = MPRAGEpath
-        self.betweenpath = MPRAGEpath.split('/',1)[-1].rsplit('/',1)[0]
-        self.Reconallname = MPRAGEpath.split('/')[-1].rsplit('.',1)[0] #Estimate reconall filename from MPRAGE
+        self.betweenpath = self.mpragepath.split('/',1)[-1].rsplit('/',1)[0]
+        self.Reconallname = self.mpragepath.split('/')[-1].rsplit('.',1)[0] #Estimate reconall filename from MPRAGE
         self.Reconalldir = os.path.join(args.freesurferdir, self.Reconallname)
         self.originalmgz = args.freesurferbasefile
         self.fittedmgz = self.originalmgz.replace('.mgz','_T1.mgz')
