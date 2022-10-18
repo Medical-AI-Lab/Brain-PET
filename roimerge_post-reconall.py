@@ -94,9 +94,10 @@ def main(args):
         roi_maker.roi_merger()
         corresponding_series = roi_maker.corresponding_series()
         df = pd.concat([df, corresponding_series],axis=1)
-    corr_csvpath  = os.path.join(args.roidir, args.outputdir + '_corr.csv')
-    df.T.to_csv(corr_csvpath, index=False)
+    return df.T
 
 if __name__ == '__main__':
     args =_argparse()
-    main(args)
+    df_corr = main(args)
+    corr_csvpath  = os.path.join(args.roidir, args.outputdir + '_corr.csv')
+    df_corr.to_csv(corr_csvpath, index=False)
