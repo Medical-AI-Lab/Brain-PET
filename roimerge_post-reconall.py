@@ -23,8 +23,10 @@ class ROI_maker():
         self.fittedniftipath = os.path.join(self.roisavedir, self.fittednifti)
         self.mergedniftipath = os.path.join(self.roisavedir, self.mergedroinifti)
         self.l_id = l_id
-        os.makedirs(self.roisavedir, exist_ok=True)
 
+    def makedir(self):
+        os.makedirs(self.roisavedir, exist_ok=True)
+        
     def fit2mprage(self):
         subprocess.call(["mri_label2vol", "--seg", self.freesurfermgzpath, "--temp", self.mpragepath, "--o", self.fittedmgzpath, "--regheader", self.freesurfermgzpath])
 
@@ -89,6 +91,7 @@ def main(args):
     df = pd.DataFrame()
     for MPRAGEpath in tqdm(l_MPRAGEpath): #MPRAGE-basis
         roi_maker = ROI_maker(args, MPRAGEpath, l_id)
+        roi_maker.makedir()
         roi_maker.fit2mprage()
         roi_maker.mgz2nifti()
         roi_maker.roi_merger()
