@@ -43,7 +43,6 @@ class ROI_maker():
         l_series = [self.mpragepath, self.freesurfermgzpath, self.mergedniftipath]
         l_index = ['MPRAGEpath','Freesurferpath', 'ROIpath']
         s_corr = pd.Series(l_series, index=l_index)
-        print(s_corr)
         return s_corr
 
 def _argparse():
