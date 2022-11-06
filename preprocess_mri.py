@@ -63,17 +63,16 @@ class MRI_preprocess():
         cmd = "fcm-normalize '{}' -o '{}' -m '{}' -mo t1 -tt wm -v".format(self.brainextractedpath, self.normalizedpath, self.brainextractedmaskpath)
         subprocess.call(cmd, shell=True)
 
+def main(args):
+    l_MPRAGEpath = [p for p in glob.glob(args.mpragedir + '/**', recursive=True) if re.search(args.filetype, p)]
+    for MPRAGEpath in tqdm(l_MPRAGEpath): #MPRAGE-basis
+        processor = MRI_preprocess(args, MPRAGEpath)
+        processor.resampling()
+        processor.harmonization()
+        processor.brainextract()
+        processor.normalization()
 
-args =_argparse()
-l_MPRAGEpath = [p for p in glob.glob(args.mpragedir + '/**', recursive=True) if re.search(args.filetype, p)]
-for MPRAGEpath in tqdm(l_MPRAGEpath): #MPRAGE-basis
-    processor = MRI_preprocess(args, MPRAGEpath)
-    processor.resampling()
-    processor.harmonization()
-    processor.brainextract()
-    processor.normalization()
 
-
-'''if __name__ == '__main__':
+if __name__ == '__main__':
     args =_argparse()
-    main(args)'''
+    main(args)
