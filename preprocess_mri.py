@@ -25,6 +25,8 @@ def _argparse():
 class MRI_preprocess():
     def __init__(self, args, MPRAGEpath):
         self.mpragepath = MPRAGEpath
+        if args.filetype == '.nii':
+            self.mpragepath = self.mpragepath.replace('.nii','.nii.gz')
         self.mpragefile = self.mpragepath.rsplit('/')[-1]
         self.maindir = args.maindir
         self.resampledfilepath = self.mpragepath.replace(args.mpragedir, self.maindir+'/'+args.resampleddir)
