@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 def _argparse():
     import argparse
-    parser = argparse.ArgumentParser(description='Choose csv and define lists to analyze')
+    parser = argparse.ArgumentParser(description='Preprocess for MPRAGEs')
     parser.add_argument('--mpragedir', type=str, default='MPRAGE', help='path to MPRAGE dir')
     parser.add_argument('--maindir', type=str, default='MPRAGE_processed', help='Main directory')
     parser.add_argument('--resampleddir', type=str, default='resampled', help='Resampled sub-directory')
